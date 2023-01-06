@@ -1,0 +1,33 @@
+<script>
+  // 定义一个商品
+  let quantity = 2
+  let product = {
+    price: 10,
+    quantity: quantity
+  }
+
+  // 总价格
+  let total = 0
+  // 计算总价格的函数
+  let effect = () => {
+    total = product.price * product.quantity
+  }
+
+  // 第一次打印
+  effect()
+  console.log(`----总价格--->: ${total}`)
+
+  // Object.defineProperty()
+  Object.defineProperty(product, 'quantity', {
+    set(newVal) {
+      console.log(`----setter--->`)
+      quantity = newVal
+      // 触发 effect
+      effect()
+    },
+    get() {
+      console.log(`----getter--->`)
+      return quantity
+    }
+  })
+</script>
