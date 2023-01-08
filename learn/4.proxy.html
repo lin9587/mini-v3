@@ -1,0 +1,34 @@
+<script>
+  // 定义一个商品
+  let product = {
+    price: 22,
+    quantity: 2
+  }
+
+  // product: 被代理对象
+  // proxyProduct: 代理对象 （只有代理对象，才会触发 setter 和 getter）
+  const proxyProduct = new Proxy(product, {
+    set(target, key, newVal, receiver) {
+      // console.log('setter:', target, key, newVal, receiver)
+      target[key] = newVal
+      // 触发 effect 计算
+      effect()
+      return true
+    },
+    get(target, key, receiver) {
+      // console.log('getter:', target, key, receiver)
+      return target[key]
+    }
+  })
+
+  // 总价格
+  let total = 0
+  // 计算总价格
+  let effect = () => {
+    total = proxyProduct.price * proxyProduct.quantity
+  }
+
+  // 打印
+  effect()
+  console.log(`----总价格--->: ${total}`)
+</script>
