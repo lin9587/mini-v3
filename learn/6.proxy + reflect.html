@@ -1,0 +1,21 @@
+<script>
+  const p1 = {
+    lastName: 'li',
+    firstName: 'lin',
+    get fullName() {
+      console.log(this) // 指向 p1
+      return this.lastName + this.firstName
+    }
+  }
+
+  const newProxy = new Proxy(p1, {
+    get(target, key, receiver) {
+      console.log('getter')
+      // return target[key]
+      return Reflect.get(target, key, receiver)
+    }
+  })
+
+  console.log(newProxy.fullName) // lilin
+  // 思考：getter 行为应该被触发几次？3次
+</script>

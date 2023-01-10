@@ -1,0 +1,22 @@
+<script>
+  const p1 = {
+    lastName: 'li',
+    firstName: 'lin',
+    get fullName() {
+      console.log('触发了方法')
+      return this.lastName + this.firstName
+    }
+  }
+
+  const p2 = {
+    lastName: 'he',
+    firstName: 'one',
+    get pullName() {
+      return this.lastName + this.firstName
+    }
+  }
+
+  console.log(p1.fullName) // lilin
+  console.log(Reflect.get(p1, 'fullName')) // lilin
+  console.log(Reflect.get(p1, 'fullName', p2)) // heone  // 该变p1 的this 指向 p2 然后在调用该方法
+</script>
