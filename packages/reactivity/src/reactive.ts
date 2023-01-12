@@ -11,5 +11,14 @@ function createReactiveObject(
   baseHandlers: ProxyHandler<any>,
   proxyMap: WeakMap<object, any>
 ) {
-  const existingproxyMap.get(target)
+  const existingProxy = proxyMap.get(target)
+  if (existingProxy) {
+    return existingProxy
+  }
+
+  const proxy = new Proxy(target, baseHandlers)
+
+  proxyMap.set(target, proxy)
+
+  return proxy
 }
